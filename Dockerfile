@@ -1,5 +1,5 @@
 FROM alpine:3.5
-MAINTAINER Marian Abaffy "abaffy@unitedclassifieds.sk"
+MAINTAINER Marian Abaffy "marphy@abaffy.eu"
 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 6.11.0
@@ -60,7 +60,6 @@ RUN /usr/local/bin/composer global require jakub-onderka/php-parallel-lint && \
     /usr/local/bin/composer global require phpunit/phpunit && \
     /usr/local/bin/composer global require phpmd/phpmd && \
     /usr/local/bin/composer global require squizlabs/php_codesniffer && \
-    /usr/local/bin/composer global require friendsofphp/php-cs-fixer && \
     /usr/local/bin/composer global require symfony/phpunit-bridge
 
 RUN wget https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
@@ -73,7 +72,6 @@ RUN ln -sn /root/.composer/vendor/bin/parallel-lint /usr/local/bin/parallel-lint
     ln -sn /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit && \
     ln -sn /root/.composer/vendor/bin/phpmd /usr/local/bin/phpmd && \
     ln -sn /root/.composer/vendor/bin/phpcs /usr/local/bin/phpcs && \
-    ln -sn /root/.composer/vendor/bin/phpcs /usr/local/bin/php-cs-fixer && \
     ln -sn /root/.composer/vendor/bin/phpcs /usr/local/bin/phpunit-bridge
 
 RUN addgroup -g 1000 node \
