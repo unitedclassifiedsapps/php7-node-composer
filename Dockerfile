@@ -41,22 +41,18 @@ RUN echo "---> Preparing and Installing PHP" && \
     php7-openssl \
     php7-phar \
     php7-zip \
-    php7-apc \
     php7-calendar \
     php7-dba \
     php7-ftp \
     php7-gettext \
     php7-iconv \
     php7-imap \
-    php7-igbinary \
     php7-ldap \
-    php7-memcache \
     php7-odbc \
     php7-pcntl \
     php7-wddx \
     php7-xmlrpc \
     php7-xsl \
-    php7-yaml \
     php7-zlib && \
     sudo unlink /usr/bin/php && \
     sudo ln -s /usr/bin/php7 /usr/bin/php
