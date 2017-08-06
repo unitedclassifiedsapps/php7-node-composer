@@ -1,8 +1,8 @@
-FROM marphy/uc-php7-node-composer:1.0.5
+FROM marphy/uc-php7-node-composer:1.0.6
 MAINTAINER Marian Abaffy "marphy@abaffy.eu"
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
-RUN echo "http://php.codecasts.rocks/7.0" >> /etc/apk/repositories && \
+RUN echo "http://php.codecasts.rocks/7.1" >> /etc/apk/repositories && \
     apk add --update \
     curl \
     bash \
