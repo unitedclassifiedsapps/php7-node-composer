@@ -1,32 +1,26 @@
-FROM marphy/uc-php7-node-composer:1.0.7
+FROM marphy/uc-php7-node-composer:1.0.8
 MAINTAINER Marian Abaffy "marphy@abaffy.eu"
 
 COPY repositories /etc/apk/
 
+RUN echo -e ";extension=memcached.so\n" > /etc/php7/conf.d/20_memcached.ini
+RUN echo -e ";extension=mongodb.so\n" > /etc/php7/conf.d/mongodb.ini
+
+RUN echo -e "extension=memcache.so\n" > /etc/php7/conf.d/20_memcache.ini
+
 RUN apk update && apk upgrade
+RUN apk add --update php7-memcached php7-mongodb
 
-RUN apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/community"
-
+# install and remove building packages
 ENV PHPIZE_DEPS autoconf file g++ gcc libc-dev make pkgconf re2c php7-dev php7-pear \
         yaml-dev pcre-dev zlib-dev libmemcached-dev cyrus-sasl-dev
 
 RUN set -xe \
-    && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/community" \
-        --virtual .phpize_deps \
+    && apk add --no-cache \
+        --virtual .phpize-deps \
         $PHPIZE_DEPS
 
-#basic tools
-RUN apk add --update wget vim bash git tar curl grep zlib make libxml2 readline \
-    freetype openssl libjpeg-turbo libpng libmcrypt libwebp
-
-RUN buildDeps=" build-base re2c file readline-dev autoconf binutils bison \
-        libxml2-dev curl-dev freetype-dev openssl-dev \
-        libjpeg-turbo-dev libpng-dev libmcrypt-dev \
-        gmp-dev libmemcached-dev linux-headers" \
-    && apk --update add $buildDeps
-
-RUN apk add --update \
-	libmemcached-dev
+COPY php.ini /etc/php7/
 
 RUN cd /tmp \
     && wget https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.zip \
@@ -34,12 +28,10 @@ RUN cd /tmp \
     && ls /tmp
 
 RUN cd /tmp/pecl-memcache-NON_BLOCKING_IO_php7 \
-    && phpize \
-    && ./configure \
+    && phpize7 \
+    && ./configure --with-php-config=/usr/bin/php-config7 \
     && make \
     && make test \
     && make install
-
-COPY php.ini /etc/php7/php.ini
 
 
