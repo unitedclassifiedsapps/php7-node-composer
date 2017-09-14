@@ -6,7 +6,7 @@ RUN composer config --global cache-dir /opt/data/cache/composer/cache-dir \
 	&& composer config --global cache-vcs-dir /opt/data/cache/composer/cache-vcs-dir \
 	&& composer config --global cache-repo-dir /opt/data/cache/composer/cache-repo-dir \
 	&& npm set registry http://npm.i.etech.sk \
-	&& npm set progress=true \
+	&& npm set progress=false \
 	&& npm config set cache /opt/data/cache/npm/cache --global \
 	&& npm config set tmp /opt/data/cache/npm/tmp --global
 
