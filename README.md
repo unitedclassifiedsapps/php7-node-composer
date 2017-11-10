@@ -1,7 +1,7 @@
 # php7-node-composer
 This Docker image contains the PHP, Composer, Node.js and most common packages necessary for building php apps in a CI tool like GitLab CI.
 
-Version 1.0.12
+Version 1.0.13
 * PHP 7.1.11
 * Composer 1.5.2
 * Node.js 6.11.0
