@@ -2,15 +2,15 @@
 This Docker image contains the PHP, Composer, Node.js and most common packages necessary for building php apps in a CI tool like GitLab CI.
 
 Version 1.0.12
-* PHP 7.0
-* Composer
+* PHP 7.1.11
+* Composer 1.5.2
 * Node.js 6.11.0
-* Yarn 0.24.6
-* npm
-* phantomjs
-* webpack@2
-* phpunit
-* phpdoc
+* Yarn 1.3.2
+* npm 3.10.10
+* phantomjs 2.0.0
+* webpack 2.7.0
+* phpunit 6.4.4
+* phpdoc 2.9.0
 * ...
 
 ```
@@ -20,7 +20,7 @@ docker run -it --rm unitedclassifiedsapps/php7-node-composer
 A `.gitlab-ci.yml` with caching of your project's dependencies would look like this:
 
 ```
-image: unitedclassifiedsapps/php7-node-composer:1.0.12
+image: unitedclassifiedsapps/php7-node-composer:1.0.13
 
 cache:
   paths:

@@ -1,17 +1,17 @@
-FROM alpine:3.5
+FROM alpine:edge
 MAINTAINER Marian Abaffy "marian.abaffy@unitedclassifieds.sk"
 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 6.11.0
-ENV YARN_VERSION 0.24.6
+ENV YARN_VERSION 1.3.2
 ENV PHANTOMJS_ARCHIVE="phantomjs.tar.gz"
 ENV PHPIZE_DEPS autoconf file g++ gcc libc-dev make pkgconf re2c php7-dev php7-pear \
     yaml-dev pcre-dev zlib-dev libmemcached-dev cyrus-sasl-dev
 
-COPY repositories /etc/apk/
+#COPY repositories /etc/apk/
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
-RUN echo "http://php.codecasts.rocks/7.0" >> /etc/apk/repositories && \
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
     apk add --update \
     curl \
     bash \
@@ -64,6 +64,10 @@ RUN echo "---> Preparing and Installing PHP" && \
     php7-xsl \
     php7-memcached \
     php7-mongodb \
+    php7-msgpack \
+    php7-xmlwriter \
+    php7-tokenizer \
+    php7-simplexml \
     php7-zlib && \
     sudo unlink /usr/bin/php && \
     sudo ln -s /usr/bin/php7 /usr/bin/php
@@ -104,11 +108,11 @@ RUN /usr/local/bin/composer global require jakub-onderka/php-parallel-lint && \
     /usr/local/bin/composer global require phpunit/phpunit && \
     /usr/local/bin/composer global require phpmd/phpmd && \
     /usr/local/bin/composer global require squizlabs/php_codesniffer && \
-    /usr/local/bin/composer global require symfony/phpunit-bridge \
-    && composer config --global cache-dir /opt/data/cache/composer/cache-dir \
-	&& composer config --global cache-repo-dir  /opt/data/cache/composer/cache-repo-dir \
-	&& composer config --global cache-vcs-dir /opt/data/cache/composer/cache-vcs-dir \
-	&& composer config --global cache-repo-dir /opt/data/cache/composer/cache-repo-dir \
+    /usr/local/bin/composer global require symfony/phpunit-bridge
+
+RUN /usr/local/bin/composer config --global cache-dir /opt/data/cache/composer/cache-dir
+RUN /usr/local/bin/composer config --global cache-vcs-dir /opt/data/cache/composer/cache-vcs-dir
+RUN /usr/local/bin/composer config --global cache-repo-dir /opt/data/cache/composer/cache-repo-dir
 
 RUN wget https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 
