@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.6
 MAINTAINER Marian Abaffy "marian.abaffy@unitedclassifieds.sk"
 
 ENV NPM_CONFIG_LOGLEVEL info
@@ -7,8 +7,6 @@ ENV YARN_VERSION 1.3.2
 ENV PHANTOMJS_ARCHIVE="phantomjs.tar.gz"
 ENV PHPIZE_DEPS autoconf file g++ gcc libc-dev make pkgconf re2c php7-dev php7-pear \
     yaml-dev pcre-dev zlib-dev libmemcached-dev cyrus-sasl-dev
-
-#COPY repositories /etc/apk/
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
@@ -19,6 +17,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     unzip \
     wget \
     openssh-client \
+    openssh \
     sudo
 
 RUN echo "---> Preparing and Installing PHP" && \
