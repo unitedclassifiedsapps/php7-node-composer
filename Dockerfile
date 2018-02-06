@@ -2,7 +2,7 @@ FROM alpine:3.6
 MAINTAINER Marian Abaffy "marian.abaffy@unitedclassifieds.sk"
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 6.11.0
+ENV NODE_VERSION 9.4.0
 ENV YARN_VERSION 1.3.2
 ENV PHANTOMJS_ARCHIVE="phantomjs.tar.gz"
 ENV PHPIZE_DEPS autoconf file g++ gcc libc-dev make pkgconf re2c php7-dev php7-pear \
@@ -73,7 +73,7 @@ RUN echo "---> Preparing and Installing PHP" && \
 
 COPY php.ini /etc/php7/
 
-RUN echo -e ";extension=memcached.so\n" > /etc/php7/conf.d/20_memcached.ini \
+RUN echo -e "extension=memcached.so\n" > /etc/php7/conf.d/20_memcached.ini \
     && echo -e ";extension=mongodb.so\n" > /etc/php7/conf.d/mongodb.ini \
     && echo -e "extension=memcache.so\n" > /etc/php7/conf.d/20_memcache.ini \
     && echo -e '\napc.enable_cli = 1\napc.enabled = 1' >> /etc/php7/php.ini
